@@ -36,4 +36,16 @@ class Article
     public function getTitle(){
         return $this->title;
     }
+
+     public function setTitle($title){
+         $this-> title = $title;
+     }
+
+     public function getBody(){
+        return $this->body;
+    }
+
+     public function setBody($body){
+        $this-> body = $body;
+    }
 }
