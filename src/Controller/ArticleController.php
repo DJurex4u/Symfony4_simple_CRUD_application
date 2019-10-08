@@ -27,18 +27,7 @@
         
 
            return $this->render('articles/index.html.twig',array('articles' => $articles));
-        }
-
-
-        /**
-         * @Route("/article/{id}", name="article_show")
-         */
-        public function show($id){
-            $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
-
-            return $this->render('articles/show.html.twig', array('article' => $article));
-        }
-
+        }       
         
 
         /**
@@ -72,5 +61,17 @@
 
             return $this->render('articles/new.html.twig', array('form'=>$form->createView()));
         }        
+
+
+        /*ZAŠTO NE VALJA AKO OVAJ BLOK BUDE IZNAD PRETHODNOG BLOKA????!??!?!? */
+        /**
+         * @Route("/article/{id}", name="article_show")
+         */
+    
+        public function show($id){
+            $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
+
+            return $this->render('articles/show.html.twig', array('article' => $article));
+        }
 
     }
