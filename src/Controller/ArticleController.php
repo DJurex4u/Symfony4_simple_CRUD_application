@@ -9,9 +9,9 @@
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
     use Symfony\Component\HttpFoundation\Request;
-    use Symfony\Component\Form\Extetsion\Core\Type\TextType;
-    use Symfony\Component\Form\Extetsion\Core\Type\TextareaType;
-    use Smfony\Component\Form\Extetsion\Core\Type\SubmitType;
+    use Symfony\Component\Form\Extension\Core\Type\TextType;
+    use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+    use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
     class ArticleController extends Controller{ 
         /**
@@ -29,14 +29,7 @@
            return $this->render('articles/index.html.twig',array('articles' => $articles));
         }
 
-        /**
-         * @Route("/artivle/{id}", name="article_show")
-         */
-        public function show($id){
-            $article = $this->getDoctrine()->getRepository(Article::class)->find(id);
-
-            return $this->render('render/show.html.twig', array('article' => $article));
-        }
+        
 
         /**
          * @Route("/article/new", name="new_article")
@@ -55,7 +48,16 @@
                 
                 ->getForm();
 
-            return $this->render('articles/new.html.twig', array('form'=>$form->createVIew()));
+            return $this->render('articles/new.html.twig', array('form'=>$form->createView()));
+        }
+
+        /**
+         * @Route("/article/{id}", name="article_show")
+         */
+        public function show($id){
+            $article = $this->getDoctrine()->getRepository(Article::class)->find(id);
+
+            return $this->render('render/show.html.twig', array('article' => $article));
         }
 
     }
