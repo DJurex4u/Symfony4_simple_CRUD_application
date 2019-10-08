@@ -29,6 +29,16 @@
            return $this->render('articles/index.html.twig',array('articles' => $articles));
         }
 
+
+        /**
+         * @Route("/article/{id}", name="article_show")
+         */
+        public function show($id){
+            $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
+
+            return $this->render('articles/show.html.twig', array('article' => $article));
+        }
+
         
 
         /**
@@ -48,16 +58,19 @@
                 
                 ->getForm();
 
+                $form->handleRequest($request);
+
+                if ($form->isSubmitted() && $form->isValid()){                    
+                    $article=$form->getData();
+
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($article);
+                    $entityManager->flush();
+
+                    return $this->redirectToRoute('article_list');
+                }
+
             return $this->render('articles/new.html.twig', array('form'=>$form->createView()));
-        }
-
-        /**
-         * @Route("/article/{id}", name="article_show")
-         */
-        public function show($id){
-            $article = $this->getDoctrine()->getRepository(Article::class)->find(id);
-
-            return $this->render('render/show.html.twig', array('article' => $article));
-        }
+        }        
 
     }
